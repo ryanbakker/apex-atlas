@@ -21,10 +21,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "ryanbakker.com.apexatlas",
+      "googleMapsApiKey": "AIzaSyDXybsZVkhBy5bbiNnd_U47guehaCWNJ4I",
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow ApexAtlas to use your location."
+        }
+      ]
+    ]
   }
 }
