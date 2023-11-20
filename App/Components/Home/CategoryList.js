@@ -29,7 +29,6 @@ export default function CategoryList({ setSelectedCategory }) {
       <Text
         style={{
           fontSize: 20,
-          fontFamily: "raleway-regular",
         }}
       >
         Select Category

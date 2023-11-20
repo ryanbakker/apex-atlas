@@ -1,24 +1,17 @@
-import { View, Text, Dimensions } from "react-native";
+import { View, Text } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import MapView, {
-  Marker,
-  PROVIDER_DEFAULT,
-  PROVIDER_GOOGLE,
-} from "react-native-maps";
-import { UserLocationContext } from "../../Context/UserLocationContext";
-import PlaceMarker from "./PlaceMarker";
+import { UserLocationContext } from "./../../Context/UserLocationContext";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { Dimensions } from "react-native";
+import PlaceMarker from "./../Home/PlaceMarker";
 
-export default function GoogleMapView({ placeList }) {
-  // Remove defaults if doesn't go to current location
+export default function GoogleMapViewFull({ placeList }) {
   const [mapRegion, setMapRegion] = useState();
 
   const { location, setLocation } = useContext(UserLocationContext);
 
-  console.log("Debug 2: ", placeList);
-
   useEffect(() => {
     if (location) {
-      console.log("location => ", location);
       setMapRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -29,33 +22,16 @@ export default function GoogleMapView({ placeList }) {
   }, [location]);
 
   return (
-    <View
-      style={{
-        marginTop: 20,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: Dimensions.get("screen").width * 0.95,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 20,
-          marginBottom: 10,
-        }}
-      >
-        Top Near by Places
-      </Text>
+    <View>
       {location ? (
         <MapView
           style={{
-            width: Dimensions.get("screen").width * 0.9,
-            height: Dimensions.get("screen").height * 0.23,
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
             borderRadius: 10,
           }}
           // DEFAULT for Device Maps / GOOGLE for Google Maps
-          provider={PROVIDER_DEFAULT}
+          provider={PROVIDER_GOOGLE}
           // Set showsUserLocation to false OR remove marker for better UX
           showsUserLocation={true}
           region={mapRegion}

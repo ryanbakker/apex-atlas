@@ -17,6 +17,7 @@ export default function Header() {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
+        paddingTop: 30,
       }}
     >
       <Image

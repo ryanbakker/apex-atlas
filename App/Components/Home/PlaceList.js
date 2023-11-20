@@ -10,27 +10,29 @@ export default function PlaceList({ placeList }) {
   const onPlaceClick = (item) => {
     navigator.navigate("place-detail", { place: item });
   };
+
   return (
-    <View>
+    <View style={{ paddingBottom: 30 }}>
       <Text
-        style={{ fontSize: 20, fontFamily: "raleway-semibold", marginTop: 10 }}
+        style={{
+          fontSize: 20,
+          marginTop: 16,
+        }}
       >
         Found {placeList.length} Places
       </Text>
 
       <FlatList
         data={placeList}
-        renderItem={({ item, index }) =>
-          index <= 15 && (
-            <TouchableOpacity key={index} onPress={() => onPlaceClick(item)}>
-              {index % 4 == 0 ? (
-                <PlaceItemHero place={item} />
-              ) : (
-                <PlaceItem place={item} />
-              )}
-            </TouchableOpacity>
-          )
-        }
+        renderItem={({ item, index }) => (
+          <TouchableOpacity key={index} onPress={() => onPlaceClick(item)}>
+            {index % 4 == 0 ? (
+              <PlaceItemHero place={item} />
+            ) : (
+              <PlaceItem place={item} />
+            )}
+          </TouchableOpacity>
+        )}
       />
     </View>
   );

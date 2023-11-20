@@ -18,8 +18,6 @@ export default function Home() {
   }, [location]);
 
   const GetNearBySearchPlace = (value) => {
-    console.log("Getting nearByPlace for value => ", value);
-
     if (location && location.coords) {
       GlobalApi.nearByPlace(
         location.coords.latitude,
@@ -27,7 +25,6 @@ export default function Home() {
         value
       )
         .then((resp) => {
-          console.log("Response for nearByPlace => ", resp.data);
           setPlaceList(resp.data.results);
         })
         .catch((error) => {
@@ -39,13 +36,13 @@ export default function Home() {
   };
 
   return (
-    <View style={{ paddingHorizontal: 10, paddingVertical: 50 }}>
+    <ScrollView style={{ padding: 20, backgroundColor: "#fff", flex: 1 }}>
       <Header />
       <GoogleMapView placeList={placeList} />
       <CategoryList
         setSelectedCategory={(value) => GetNearBySearchPlace(value)}
       />
       {placeList ? <PlaceList placeList={placeList} /> : null}
-    </View>
+    </ScrollView>
   );
 }

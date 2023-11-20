@@ -46,7 +46,6 @@ export default function PlaceItem({ place }) {
           style={{
             fontSize: 18,
             marginBottom: 5,
-            fontFamily: "raleway-semibold",
           }}
         >
           {place.name}
