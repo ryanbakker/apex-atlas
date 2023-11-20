@@ -1,33 +1,29 @@
 import { View, Text, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import MapView, { PROVIDER_DEFAULT } from "react-native-maps";
+import MapView, {
+  Marker,
+  PROVIDER_DEFAULT,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import { UserLocationContext } from "../../Context/UserLocationContext";
+import PlaceMarker from "./PlaceMarker";
 
-export default function GoogleMapView() {
+export default function GoogleMapView({ placeList }) {
   // Remove defaults if doesn't go to current location
-  const [mapRegion, setMapRegion] = useState({
-    latitude: -36.8485,
-    longitude: 174.7633,
-    latitudeDelta: 0.19,
-    longitudeDelta: 0.07,
-    altitude: 1,
-  });
+  const [mapRegion, setMapRegion] = useState();
 
   const { location, setLocation } = useContext(UserLocationContext);
-
-  console.log("Apple Location => ", location);
 
   useEffect(() => {
     if (location) {
       setMapRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.07,
-        altitude: location.coords.altitude,
+        latitudeDelta: 0.07,
+        longitudeDelta: 0.05,
       });
     }
-  }, []);
+  }, [location]);
 
   return (
     <View
@@ -40,17 +36,36 @@ export default function GoogleMapView() {
         width: Dimensions.get("screen").width * 0.95,
       }}
     >
-      <MapView
+      <Text
         style={{
-          width: Dimensions.get("screen").width * 0.9,
-          height: Dimensions.get("screen").height * 0.23,
-          borderRadius: 10,
+          fontSize: 20,
+          marginBottom: 10,
+          fontFamily: "raleway-semibold",
         }}
-        // DEFAULT for Device Maps / GOOGLE for Google Maps
-        provider={PROVIDER_DEFAULT}
-        showsUserLocation={true}
-        region={mapRegion}
-      ></MapView>
+      >
+        Top Near by Places
+      </Text>
+      {location ? (
+        <MapView
+          style={{
+            width: Dimensions.get("screen").width * 0.9,
+            height: Dimensions.get("screen").height * 0.23,
+            borderRadius: 10,
+          }}
+          // DEFAULT for Device Maps / GOOGLE for Google Maps
+          provider={PROVIDER_GOOGLE}
+          // Set showsUserLocation to false OR remove marker for better UX
+          showsUserLocation={true}
+          region={mapRegion}
+        >
+          <Marker title="You" coordinate={mapRegion} />
+
+          {placeList.map(
+            (item, index) =>
+              index <= 4 && <PlaceMarker item={item} key={index} />
+          )}
+        </MapView>
+      ) : null}
     </View>
   );
 }

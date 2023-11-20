@@ -1,3 +1,5 @@
 export default {
-  lightGray: "#BBBBBB",
+  grey: "#BBBBBB",
+  lightGrey: "#DDDDDD",
+  ratingStar: "#FABD07",
 };
