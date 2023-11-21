@@ -58,8 +58,6 @@ export default function GoogleMapView({ placeList }) {
           showsUserLocation={true}
           region={mapRegion}
         >
-          <Marker title="You" coordinate={mapRegion} />
-
           {placeList.map(
             (item, index) =>
               index <= 4 && <PlaceMarker item={item} key={index} />
