@@ -15,13 +15,17 @@ export default function HomeNavigation() {
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: true,
-        headerShown: false,
         ...(isAndroid && TransitionPresets.ModalPresentationIOS),
       }}
     >
-      <Stack.Screen name="home" component={Home} />
+      <Stack.Screen
+        name="home"
+        options={{ headerShown: false }}
+        component={Home}
+      />
       <Stack.Screen
         name="place-detail"
+        options={{ title: "", headerShown: false }}
         component={PlaceDetail}
         screenOptions={{ presentation: "modal" }}
       />

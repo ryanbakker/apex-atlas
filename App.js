@@ -2,17 +2,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ScrollView, StyleSheet, View } from "react-native";
 import TabNavigation from "./App/Navigations/TabNavigation";
 import { useEffect, useState } from "react";
-import { useFonts } from "expo-font";
 import * as Location from "expo-location";
 import { UserLocationContext } from "./App/Context/UserLocationContext";
 
 export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [fontsLoaded] = useFonts({
-    "raleway-regular": require("./assets/Fonts/Raleway-Regular.ttf"),
-    "raleway-semibold": require("./assets/Fonts/Raleway-SemiBold.ttf"),
-  });
 
   useEffect(() => {
     (async () => {

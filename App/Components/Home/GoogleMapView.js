@@ -14,11 +14,8 @@ export default function GoogleMapView({ placeList }) {
 
   const { location, setLocation } = useContext(UserLocationContext);
 
-  console.log("Debug 2: ", placeList);
-
   useEffect(() => {
     if (location) {
-      console.log("location => ", location);
       setMapRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,

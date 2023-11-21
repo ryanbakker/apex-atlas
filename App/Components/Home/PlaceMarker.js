@@ -3,8 +3,6 @@ import React from "react";
 import { Marker } from "react-native-maps";
 
 export default function PlaceMarker({ item }) {
-  console.log("Debug 1: ", item);
-
   return (
     <Marker
       title={item.name}

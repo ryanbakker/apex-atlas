@@ -1,7 +1,11 @@
 import { View, Text } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { UserLocationContext } from "./../../Context/UserLocationContext";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, {
+  Marker,
+  PROVIDER_DEFAULT,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import { Dimensions } from "react-native";
 import PlaceMarker from "./../Home/PlaceMarker";
 
@@ -31,7 +35,7 @@ export default function GoogleMapViewFull({ placeList }) {
             borderRadius: 10,
           }}
           // DEFAULT for Device Maps / GOOGLE for Google Maps
-          provider={PROVIDER_GOOGLE}
+          provider={PROVIDER_DEFAULT}
           // Set showsUserLocation to false OR remove marker for better UX
           showsUserLocation={true}
           region={mapRegion}

@@ -17,9 +17,19 @@ const nearByPlace = (lat, lng, type) =>
       API_KEY
   );
 
-const searchByText = (searchText) =>
+const searchByText = (searchText, lat, lng, radius = 5000) =>
   axios.get(
-    BASE_URL + "/textsearch/json?query=" + searchText + "&key=" + API_KEY
+    BASE_URL +
+      "/textsearch/json?query=" +
+      searchText +
+      "&location=" +
+      lat +
+      "," +
+      lng +
+      "&radius=" +
+      radius +
+      "&key=" +
+      API_KEY
   );
 
 export default { nearByPlace, searchByText };

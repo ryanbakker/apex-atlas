@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import GoogleMapViewFull from "../Components/Search/GoogleMapViewFull";
 import SearchBar from "../Components/Search/SearchBar";
@@ -8,17 +8,33 @@ import BusinessList from "../Components/Search/BusinessList";
 
 export default function Search() {
   const [placeList, setPlaceList] = useState([]);
-  const { location, setLocation } = useContext(UserLocationContext);
+  const { location } = useContext(UserLocationContext);
 
   useEffect(() => {
-    GetNearBySearchPlace("restaurant");
-  }, []);
+    if (location && location.coords) {
+      GetNearBySearchPlace(
+        "restaurant",
+        location.coords.latitude,
+        location.coords.longitude
+      );
+    }
+  }, [location]);
 
-  const GetNearBySearchPlace = (value) => {
-    GlobalApi.searchByText(value).then((resp) => {
-      setPlaceList(resp.data.results);
-    });
+  const GetNearBySearchPlace = (value, latitude, longitude, radius = 1500) => {
+    if (location && location.coords) {
+      GlobalApi.searchByText(value, latitude, longitude, radius)
+        .then((resp) => {
+          setPlaceList(resp.data.results);
+        })
+        .catch((error) => {
+          console.error("Error fetching nearByPlace => ", error);
+        });
+    } else {
+      console.warn("Location or location.coords is null");
+    }
   };
+
+  console.log("Place List => ", placeList);
 
   return (
     <View>
@@ -28,7 +44,15 @@ export default function Search() {
           zIndex: 20,
         }}
       >
-        <SearchBar setSearchText={(value) => GetNearBySearchPlace(value)} />
+        <SearchBar
+          setSearchText={(value) =>
+            GetNearBySearchPlace(
+              value,
+              location.coords.latitude,
+              location.coords.longitude
+            )
+          }
+        />
       </View>
 
       <GoogleMapViewFull placeList={placeList} />
