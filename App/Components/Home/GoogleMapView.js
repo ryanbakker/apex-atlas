@@ -53,6 +53,7 @@ export default function GoogleMapView({ placeList }) {
           }}
           // DEFAULT for Device Maps / GOOGLE for Google Maps
           provider={PROVIDER_DEFAULT}
+          pitchEnabled={true}
           // Set showsUserLocation to false OR remove marker for better UX
           showsUserLocation={true}
           region={mapRegion}
